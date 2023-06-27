@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <title>
+        Slack archive viewer
+    </title>
+</head>
+
+<body>
+    <h1 class="title is-2 has-text-light p-2" style="background-color:<%=user.fill_color%>"><%=user.display_name %> </h1>
+    <div class="block">
+        <span class="icon-text">
+            <span class="icon">
+              <span class="mdi mdi-24px mdi-arrow-left-circle"></span>
+            </span>
+            <span>back</span>
+          </span>
+    </div>
+    <div class="block">    <table class="table is-fullwidth" id="content-table">
+        <table class="table is-fullwidth" id="content-table">
+            <thead><th class="title has-text-light" style="background-color:<%=user.fill_color%>" colspan="4">messages</th></thead>
+                
+            <tbody id="channelList">
+                <% for (let message of messages ) { %>
+                    <% 
+                        const date_obj = new Date(message.ts*1000);
+                        const date_options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second:'numeric' };
+                        const formattedDate = new Intl.DateTimeFormat('en-GB', date_options).format(date_obj);
+                    %>
+                <tr class="has-text-light" style="background-color:<%=user.fill_color%>">
+                    <td><%=new Date(message.ts).toString()%></td>
+                    <td><%=message.channel.name%></td>
+                    <td><%=message.type %></td>
+                    <td><%=message.text %></td>
+                </tr>
+                <% } %>
+            </tbody>
+
+
+        </table>
+    </div>
+
+
+    
+</body>
+
+</html>

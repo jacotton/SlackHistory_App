@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <title>
+        Slack archive viewer
+    </title>
+</head>
+
+<body>
+    <h1 class="title is-2 has-text-light has-background-info p-2">Slack Archive Viewer</h1>
+    <div class="field is-grouped">
+        
+        <form action="/search" method="POST" class="control" novalidate>
+    
+
+        <div class="control">
+            <input name="search_Term" id="search" class="input" type="text" placeholder="Text input">
+        </div>
+        <div class="control">
+            <button class="button is-link">Search</button>
+        </div>
+        </form>
+    </div>
+
+    
+    <div class="block">
+    <div class="columns">
+    
+    <div class="column">
+        <div class="block">
+
+            
+            <table class="table is-fullwidth" id="content-table">
+                <thead><th class="title has-text-light has-background-info" colspan="2">channels</th></thead>
+                    
+                <tbody id="channelList">
+                    <% for (let channel of channels ) { %>
+                    <tr class="has-text-light has-background-info">
+                        <td><%=channel.name %></td>
+                        <td><a class="button" href="/channel/<%=channel._id%>">view</a></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="block">
+
+            
+            <table class="table is-fullwidth" id="content-table">
+                <thead><th class="title has-text-dark has-background-warning" colspan="2">users</th></thead>
+                    
+                <tbody id="userList">
+                    <% for (let user of users ) { if (user.display_name) {%>
+                        
+                        <tr class="has-text-dark" style="background-color:<%=user.fill_color%>">
+                        <td><%=user.display_name %></td>
+                        <td><a class="button" href="/user/<%=user._id%>">view</a></td>
+                    </tr>
+                    <% }} %>
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+    </div>
+
+    
+</body>
+
+</html>
